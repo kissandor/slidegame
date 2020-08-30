@@ -1,5 +1,5 @@
 let gridNumber = 25;
-
+let numberOfMoves = 0;
 //function to create the grid system
 function createGrid(columns) {
   addNumbersToNumber(gridNumber);
@@ -44,8 +44,10 @@ let moveNumber = () => {
         id
       ).innerHTML;
       document.getElementById(id).innerHTML = "";
+      numberOfMoves++;
     }
   }
+  document.querySelector("span").innerHTML = numberOfMoves;
 };
 
 //function to find the empty cel
@@ -84,6 +86,7 @@ createGrid(gridNumber);
 //restart the game by shuffling the numbers
 let shuffleBtn = document.querySelector("#shuffle");
 shuffleBtn.addEventListener("click", () => {
+  resteNumberOfMoves();
   shuffleArray(numbers);
   let cellValues = document.querySelectorAll("div.grid-item");
   for (let i = 0; i < cellValues.length; i++) {
@@ -91,3 +94,9 @@ shuffleBtn.addEventListener("click", () => {
     console.log(cellValues[i].innerHTML);
   }
 });
+
+//reset Number of moves variable
+let resteNumberOfMoves = () => {
+  numberOfMoves = 0;
+  document.querySelector("span").innerHTML = numberOfMoves;
+};
