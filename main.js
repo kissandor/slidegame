@@ -80,3 +80,14 @@ let isEmptyCellMyNeighbors = (id) => {
 };
 
 createGrid(gridNumber);
+
+//restart the game by shuffling the numbers
+let shuffleBtn = document.querySelector("#shuffle");
+shuffleBtn.addEventListener("click", () => {
+  shuffleArray(numbers);
+  let cellValues = document.querySelectorAll("div.grid-item");
+  for (let i = 0; i < cellValues.length; i++) {
+    cellValues[i].innerHTML = numbers[i];
+    console.log(cellValues[i].innerHTML);
+  }
+});
