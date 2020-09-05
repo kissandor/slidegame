@@ -49,7 +49,12 @@ let shuffleArray = (numbers) => {
 //move numbesr
 let moveNumber = () => {
   let id = parseInt(event.srcElement.id);
+  console.log(id);
   let neighbors = isEmptyCellMyNeighbors(id);
+  console.log(neighbors);
+  /*console.log(gridNumber);
+  console.log(rownumber); */
+
   let empty = findEmptyCell();
   for (let neighbor of neighbors) {
     if (neighbor == empty) {
@@ -81,6 +86,7 @@ let isEmptyCellMyNeighbors = (id) => {
   let neighbors = [id - 1, id + 1, id - rownumber, id + rownumber];
   for (let i = 0; i < neighbors.length; i++) {
     if (neighbors[i] < 1 || neighbors[i] > gridNumber) {
+      console.log(neighbors[i]);
       neighbors[i] = null;
     }
   }
@@ -103,7 +109,7 @@ for (let btn of shuffleBtn) {
   btn.addEventListener("click", () => {
     resteNumberOfMoves();
     removeGrid();
-    rownumber = btn.id;
+    rownumber = parseInt(btn.id);
     gridNumber = Math.pow(rownumber, 2);
     createGrid(gridNumber);
   });
