@@ -1,12 +1,25 @@
-let gridNumber = 25;
+let rownumber = 5;
+let gridNumber = Math.pow(rownumber, 2);
 let numberOfMoves = 0;
+
 //function to create the grid system
 function createGrid(columns) {
+  let gridContainer = document.querySelector(".grid-container");
+  gridContainer.style.gridTemplateColumns = `repeat(${rownumber}, 60px)`;
   addNumbersToNumber(gridNumber);
+
   for (let i = 0; i < columns; i++) {
     createElement(numbers[i], i + 1);
   }
 }
+
+//function to remove the grid
+let removeGrid = () => {
+  let grids = document.querySelectorAll(".grid-item");
+  for (let grid of grids) {
+    grid.remove();
+  }
+};
 
 //function to create a square
 let createElement = function (innerHtml, id) {
@@ -19,7 +32,7 @@ let createElement = function (innerHtml, id) {
   parent.appendChild(square);
 };
 
-//function to add numbers to the squares
+//Nnumbers array, first element of the array is an empty string.These numbers are displayed on each squares
 let numbers = [];
 let addNumbersToNumber = (number) => {
   numbers[0] = "";
@@ -64,36 +77,37 @@ let findEmptyCell = () => {
 
 //function to check if the clicked and the empty cells are neighbors or not
 let isEmptyCellMyNeighbors = (id) => {
-  let neighbors = [id - 1, id + 1, id - 5, id + 5];
+  // neightburs = [left, right, top, bottom square]
+  let neighbors = [id - 1, id + 1, id - rownumber, id + rownumber];
   for (let i = 0; i < neighbors.length; i++) {
     if (neighbors[i] < 1 || neighbors[i] > gridNumber) {
       neighbors[i] = null;
     }
   }
-  if (id % 5 == 0) {
+  //no neighbour on the right
+  if (id % rownumber == 0) {
     neighbors[1] = null;
   }
-  //need to fix this
-  if (id == 6 || id == 11 || id == 16 || id == 21) {
+  //no neighbour on the left
+  if (id % rownumber == 1) {
     neighbors[0] = null;
   }
-
   return neighbors;
 };
 
 createGrid(gridNumber);
 
-//restart the game by shuffling the numbers
-let shuffleBtn = document.querySelector("#shuffle");
-shuffleBtn.addEventListener("click", () => {
-  resteNumberOfMoves();
-  shuffleArray(numbers);
-  let cellValues = document.querySelectorAll("div.grid-item");
-  for (let i = 0; i < cellValues.length; i++) {
-    cellValues[i].innerHTML = numbers[i];
-    console.log(cellValues[i].innerHTML);
-  }
-});
+//restart the game
+let shuffleBtn = document.querySelectorAll("button");
+for (let btn of shuffleBtn) {
+  btn.addEventListener("click", () => {
+    resteNumberOfMoves();
+    removeGrid();
+    rownumber = btn.id;
+    gridNumber = Math.pow(rownumber, 2);
+    createGrid(gridNumber);
+  });
+}
 
 //reset Number of moves variable
 let resteNumberOfMoves = () => {
