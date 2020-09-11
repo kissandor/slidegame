@@ -1,6 +1,7 @@
 let rownumber = 5;
 let gridNumber = Math.pow(rownumber, 2);
 let numberOfMoves = 0;
+let numbers = [];
 
 //function to create the grid system
 function createGrid(columns) {
@@ -15,6 +16,7 @@ function createGrid(columns) {
 
 //function to remove the grid
 let removeGrid = () => {
+  numbers = [];
   let grids = document.querySelectorAll(".grid-item");
   for (let grid of grids) {
     grid.remove();
@@ -33,7 +35,6 @@ let createElement = function (innerHtml, id) {
 };
 
 //Nnumbers array, first element of the array is an empty string.These numbers are displayed on each squares
-let numbers = [];
 let addNumbersToNumber = (number) => {
   numbers[0] = "";
   for (let i = 1; i < number; i++) {
